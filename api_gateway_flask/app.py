@@ -88,4 +88,10 @@ Sistema de Manutenção Industrial
         return True
     except Exception as e:
         print(f"❌ Erro ao enviar notificação SNS: {e}")
-        return Falsead
+        return False
+    # ========== BANCO DE DADOS LOCAL ==========
+
+DB_FILE = 'local_database.json'
+
+def carregar_dados():
+    """Carrega dados do arquivo JSON local"""
