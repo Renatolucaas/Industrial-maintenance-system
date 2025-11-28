@@ -379,5 +379,32 @@ def health_check():
         "sns_region": SNS_REGION
     }), 200
 
+        # ========== INICIALIZAÇÃO ==========
+
+def criar_dados_exemplo():
+    """Cria dados de exemplo para teste"""
+    try:
+        # Verifica se já existem dados
+        dados_existentes = listar_solicitacoes()
+        if dados_existentes:
+            print("✅ Já existem dados no sistema")
+            return
+            
+        dados_exemplo = {
+            'solicitacao_id': 'sol_exemplo_001',
+            'operador_id': 'op_001',
+            'maquina_id': 'maq_001',
+            'tipo_manutencao': 'preventiva',
+            'descricao_problema': 'Sistema inicializado com dados de exemplo',
+            'prioridade': 'media',
+            'status': 'concluida',
+            'timestamp_solicitacao': datetime.now().isoformat()
+        }
         
+        criar_solicitacao(dados_exemplo)
+        print("✅ Dados de exemplo criados")
+        
+    except Exception as e:
+        print(f"⚠️ Não foi possível criar dados exemplo: {e}")
+
         
