@@ -354,3 +354,7 @@ def criar_solicitacao_route():
             'status': 'recebida',
             'timestamp_solicitacao': datetime.now().isoformat()
         }
+
+        # Salvar no banco de dados
+        solicitacao_id = criar_solicitacao(dados_solicitacao)
+        
