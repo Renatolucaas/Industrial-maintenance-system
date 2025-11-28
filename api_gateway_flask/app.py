@@ -10,19 +10,18 @@ app = Flask(__name__)
 # ========== CONFIGURAÇÃO INTELIGENTE ==========
 
 def detectar_ambiente():
-    
     """
     Detecta automaticamente se estamos em ambiente AWS ou desenvolvimento local
     """
-     # Verifica se as credenciais AWS estão configuradas
+    # Verifica se as credenciais AWS estão configuradas
     try:
         # Tenta acessar o S3
         s3 = boto3.client('s3')
         s3.list_buckets()
-
-         # AWS está configurada
-        BUCKET_NAME = "tinydb-storage-123456789" 
-
+        
+        # Se chegou aqui, AWS está configurada
+        BUCKET_NAME = "tinydb-storage-123456789"  # 👈 ALTERE para seu bucket
+        
         # Verifica se o bucket existe
         try:
             s3.head_bucket(Bucket=BUCKET_NAME)
@@ -30,7 +29,7 @@ def detectar_ambiente():
         except:
             print("⚠️ Bucket S3 não encontrado, usando modo local")
             return "local", None
-        
+            
     except Exception as e:
         print(f"⚠️ AWS não configurada, usando modo local: {e}")
         return "local", None
@@ -86,10 +85,12 @@ Sistema de Manutenção Industrial
         
         print(f"✅ Notificação SNS enviada: {response['MessageId']}")
         return True
+        
     except Exception as e:
         print(f"❌ Erro ao enviar notificação SNS: {e}")
         return False
-    # ========== BANCO DE DADOS LOCAL ==========
+
+# ========== BANCO DE DADOS LOCAL ==========
 
 DB_FILE = 'local_database.json'
 
@@ -103,6 +104,7 @@ def carregar_dados():
         print(f"Erro ao carregar dados: {e}")
     
     return {'solicitacoes': []}
+
 def salvar_dados(dados):
     """Salva dados no arquivo JSON local"""
     try:
@@ -112,13 +114,14 @@ def salvar_dados(dados):
     except Exception as e:
         print(f"Erro ao salvar dados: {e}")
         return False
-    
+
 def criar_solicitacao_local(solicitacao_data):
     """Cria nova solicitação no banco local"""
     dados = carregar_dados()
     dados['solicitacoes'].append(solicitacao_data)
     salvar_dados(dados)
     return solicitacao_data['solicitacao_id']
+
 def listar_todas_solicitacoes_local():
     """Lista todas as solicitações do banco local"""
     dados = carregar_dados()
@@ -129,6 +132,7 @@ def listar_todas_solicitacoes_local():
 def obter_metricas_gerais_local():
     """Obtém métricas do sistema do banco local"""
     solicitacoes = listar_todas_solicitacoes_local()
+    
     metricas = {
         'total_solicitacoes': len(solicitacoes),
         'por_status': {},
@@ -136,6 +140,7 @@ def obter_metricas_gerais_local():
         'por_tipo': {},
         'ultimas_24h': 0
     }
+    
     for solic in solicitacoes:
         status = solic.get('status', 'desconhecido')
         metricas['por_status'][status] = metricas['por_status'].get(status, 0) + 1
@@ -145,6 +150,7 @@ def obter_metricas_gerais_local():
         metricas['por_tipo'][tipo] = metricas['por_tipo'].get(tipo, 0) + 1
     
     return metricas
+
 # ========== BANCO DE DADOS AWS S3 ==========
 
 def criar_solicitacao_aws(solicitacao_data):
@@ -156,6 +162,7 @@ def criar_solicitacao_aws(solicitacao_data):
         print(f"❌ Erro ao salvar no S3: {e}")
         # Fallback para local
         return criar_solicitacao_local(solicitacao_data)
+
 def listar_todas_solicitacoes_aws():
     """Lista todas as solicitações do S3"""
     try:
@@ -165,6 +172,7 @@ def listar_todas_solicitacoes_aws():
         print(f"❌ Erro ao carregar do S3: {e}")
         # Fallback para local
         return listar_todas_solicitacoes_local()
+
 def obter_metricas_gerais_aws():
     """Obtém métricas do sistema do S3"""
     try:
@@ -174,8 +182,8 @@ def obter_metricas_gerais_aws():
         print(f"❌ Erro ao carregar métricas do S3: {e}")
         # Fallback para local
         return obter_metricas_gerais_local()
-    
-    # ========== FUNÇÕES UNIFICADAS ==========
+
+# ========== FUNÇÕES UNIFICADAS ==========
 
 def criar_solicitacao(solicitacao_data):
     """Cria solicitação no ambiente apropriado"""
@@ -183,14 +191,22 @@ def criar_solicitacao(solicitacao_data):
         return criar_solicitacao_aws(solicitacao_data)
     else:
         return criar_solicitacao_local(solicitacao_data)
+
+def listar_solicitacoes():
+    """Lista solicitações do ambiente apropriado"""
+    if AMBIENTE == "aws":
+        return listar_todas_solicitacoes_aws()
+    else:
+        return listar_todas_solicitacoes_local()
+
 def obter_metricas():
     """Obtém métricas do ambiente apropriado"""
     if AMBIENTE == "aws":
         return obter_metricas_gerais_aws()
     else:
         return obter_metricas_gerais_local()
-    
-    # ========== ROTAS DE PÁGINAS ==========
+
+# ========== ROTAS DE PÁGINAS ==========
 
 @app.route('/', methods=['GET'])
 def home():
@@ -207,7 +223,7 @@ def listar_solicitacoes_route():
         return render_template('solicitacoes.html', solicitacoes=todas_solicitacoes)
     except Exception as e:
         return render_template('error.html', error=f"Erro ao carregar solicitações: {str(e)}")
-    
+
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
     try:
@@ -215,13 +231,13 @@ def dashboard():
         return render_template('dashboard.html', metricas=metricas)
     except Exception as e:
         return render_template('error.html', error=f"Erro ao carregar dashboard: {str(e)}")
-    
-    # ========== ROTAS SNS - NOTIFICAÇÕES ==========
+
+# ========== ROTAS SNS - NOTIFICAÇÕES ==========
 
 @app.route('/teste-email', methods=['GET', 'POST'])
 def teste_email():
     """Página para testar envio de emails via SNS"""
-
+    
     if request.method == 'POST':
         try:
             # Dados do formulário
@@ -249,7 +265,8 @@ de notificações está funcionando corretamente.
 ---
 Sistema Automático - Não responder
 """
-# Publicar no SNS
+            
+            # Publicar no SNS
             response = sns.publish(
                 TopicArn=SNS_TOPIC_ARN,
                 Message=mensagem_completa,
@@ -261,13 +278,15 @@ Sistema Automático - Não responder
                     }
                 }
             )
+            
             return render_template('sucesso.html', 
                                 mensagem=f"Email de teste enviado com sucesso! Message ID: {response['MessageId']}",
                                 solicitacao_id=response['MessageId'])
             
         except Exception as e:
             return render_template('error.html', error=f"Erro ao enviar email: {str(e)}")
-         # GET - Mostrar formulário de teste
+    
+    # GET - Mostrar formulário de teste
     return '''
     <!DOCTYPE html>
     <html>
@@ -312,6 +331,7 @@ Sistema Automático - Não responder
     </body>
     </html>
     '''
+
 @app.route('/inscrever-email', methods=['GET', 'POST'])
 def inscrever_email():
     """Inscrever um email no tópico SNS"""
@@ -330,15 +350,16 @@ def inscrever_email():
                 Endpoint=email,
                 ReturnSubscriptionArn=True
             )
+            
             return render_template('sucesso.html', 
                                 mensagem=f"Email {email} inscrito com sucesso! Verifique sua caixa de entrada para confirmar a inscrição.",
                                 solicitacao_id=response['SubscriptionArn'])
             
         except Exception as e:
             return render_template('error.html', error=f"Erro ao inscrever email: {str(e)}")
-        
-       
-       # ========== ROTAS API ==========
+    
+    
+# ========== ROTAS API ==========
 
 @app.route('/api/solicitacao/manutencao', methods=['POST'])
 def criar_solicitacao_route():
@@ -354,21 +375,22 @@ def criar_solicitacao_route():
             'status': 'recebida',
             'timestamp_solicitacao': datetime.now().isoformat()
         }
-
+        
         # Salvar no banco de dados
         solicitacao_id = criar_solicitacao(dados_solicitacao)
-
-         # 🔔 ENVIAR NOTIFICAÇÃO SNS
+        
+        # 🔔 ENVIAR NOTIFICAÇÃO SNS
         enviar_notificacao_sns(dados_solicitacao)
         
         # Redirecionar para página de sucesso
         return render_template('sucesso.html', 
                              mensagem="Solicitação criada com sucesso!",
                              solicitacao_id=dados_solicitacao['solicitacao_id'])
+        
     except Exception as e:
         return render_template('error.html', error=f"Erro ao criar solicitação: {str(e)}")
-    
-    # Rota de health check
+
+# Rota de health check
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({
@@ -379,7 +401,7 @@ def health_check():
         "sns_region": SNS_REGION
     }), 200
 
-        # ========== INICIALIZAÇÃO ==========
+# ========== INICIALIZAÇÃO ==========
 
 def criar_dados_exemplo():
     """Cria dados de exemplo para teste"""
@@ -407,7 +429,7 @@ def criar_dados_exemplo():
     except Exception as e:
         print(f"⚠️ Não foi possível criar dados exemplo: {e}")
 
-        if __name__ == '__main__':
+if __name__ == '__main__':
     # Criar alguns dados de exemplo ao iniciar
     criar_dados_exemplo()
     
@@ -424,5 +446,3 @@ def criar_dados_exemplo():
     print("   🏠 Página Inicial: http://localhost:5000/")
     
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-        
