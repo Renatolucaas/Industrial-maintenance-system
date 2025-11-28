@@ -233,5 +233,21 @@ def teste_email():
             
             # Mensagem de teste
             mensagem_completa = f"""
+🔔 TESTE DE NOTIFICAÇÃO - SISTEMA DE MANUTENÇÃO INDUSTRIAL
+
+Mensagem: {mensagem_teste}
+
+📋 Detalhes do Teste:
+- Sistema: Manutenção Industrial
+- Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+- Tipo: Teste de Notificação
+- Status: ✅ Funcionando
+
+Esta é uma mensagem de teste para verificar se o sistema 
+de notificações está funcionando corretamente.
+
+---
+Sistema Automático - Não responder
+"""
 
 
