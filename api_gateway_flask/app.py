@@ -19,3 +19,6 @@ def detectar_ambiente():
         # Tenta acessar o S3
         s3 = boto3.client('s3')
         s3.list_buckets()
+
+         # AWS está configurada
+        BUCKET_NAME = "tinydb-storage-123456789" 
