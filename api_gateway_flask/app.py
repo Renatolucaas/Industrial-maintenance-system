@@ -22,3 +22,11 @@ def detectar_ambiente():
 
          # AWS está configurada
         BUCKET_NAME = "tinydb-storage-123456789" 
+
+        # Verifica se o bucket existe
+        try:
+            s3.head_bucket(Bucket=BUCKET_NAME)
+            return "aws", BUCKET_NAME
+        except:
+            print("⚠️ Bucket S3 não encontrado, usando modo local")
+            return "local", None
