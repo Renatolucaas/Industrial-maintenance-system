@@ -156,3 +156,25 @@ def buscar_solicitacao_por_id(solicitacao_id, bucket_name):
         return None
     finally:
         storage.close()
+
+def listar_todas_solicitacoes(bucket_name):
+    """
+    Lista todas as solicitações do sistema
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        todas = tabela.all()
+        
+        # Ordenar por timestamp (mais recentes primeiro)
+        todas.sort(key=lambda x: x.get('timestamp_solicitacao', ''), reverse=True)
+        
+        return todas
+    except Exception as e:
+        logger.error(f"Erro ao listar solicitações: {str(e)}")
+        return []
+    finally:
+        storage.close()
+
+def atualizar_status_solicitacao(solicitacao_id, novo_status, bucket_name, tecnico_responsavel=None):
