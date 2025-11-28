@@ -261,4 +261,9 @@ Sistema Automático - Não responder
                     }
                 }
             )
-
+            return render_template('sucesso.html', 
+                                mensagem=f"Email de teste enviado com sucesso! Message ID: {response['MessageId']}",
+                                solicitacao_id=response['MessageId'])
+            
+        except Exception as e:
+            return render_template('error.html', error=f"Erro ao enviar email: {str(e)}")
