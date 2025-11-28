@@ -72,7 +72,7 @@ class TinyDBS3Storage:
             if not success:
                 raise Exception("Falha ao inicializar database do S3")
             
-             db = TinyDB(self.local_db_path)
+            db = TinyDB(self.local_db_path)
         
         # Monkey patch para sync automático
         original_insert = db.insert
@@ -107,7 +107,7 @@ class TinyDBS3Storage:
         
         return db
     
-     def close(self):
+    def close(self):
         """
         Limpeza do arquivo temporário
         """
@@ -224,7 +224,7 @@ def listar_solicitacoes_por_filtro(filtro, valor, bucket_name):
     finally:
         storage.close()
 
-        def obter_metricas_gerais(bucket_name):
+def obter_metricas_gerais(bucket_name):
     """
     Obtém métricas gerais do sistema
     """
