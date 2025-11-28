@@ -77,3 +77,12 @@ Sistema de Manutenção Industrial
                     'DataType': 'String',
                     'StringValue': solicitacao['prioridade']
                 },
+                'TipoManutencao': {
+                    'DataType': 'String', 
+                    'StringValue': solicitacao['tipo_manutencao']
+                }
+            }
+        )
+        
+        print(f"✅ Notificação SNS enviada: {response['MessageId']}")
+        return True
