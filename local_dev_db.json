@@ -1,0 +1,1 @@
+{"solicitacoes": {"1": {"solicitacao_id": "sol_dev_001", "operador_id": "op_001", "maquina_id": "maq_123", "tipo_manutencao": "preventiva", "descricao_problema": "Barulho anormal no motor", "prioridade": "alta", "status": "recebida", "timestamp": "2025-11-21T10:00:00", "localizacao": "setor_b", "turno": "primeiro"}}}

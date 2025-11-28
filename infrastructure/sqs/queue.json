@@ -1,0 +1,73 @@
+{
+  "SNSConfigurations": {
+    "NotificacaoTopic": {
+      "TopicName": "manutencao-industrial-notificacoes",
+      "DisplayName": "Notificações Sistema Manutenção",
+      "Subscriptions": [
+        {
+          "Protocol": "email",
+          "Endpoint": "tecnico@empresa.com"
+        },
+        {
+          "Protocol": "sms",
+          "Endpoint": "+5511999999999"
+        }
+      ]
+    }
+  },
+  "SQSConfigurations": {
+    "FilaManutencaoIndustrial": {
+      "QueueName": "manutencao-industrial-queue",
+      "Attributes": {
+        "DelaySeconds": "0",
+        "MaximumMessageSize": "262144",
+        "MessageRetentionPeriod": "345600",
+        "ReceiveMessageWaitTimeSeconds": "0",
+        "VisibilityTimeout": "300"
+      },
+      "Tags": {
+        "Project": "ManutencaoIndustrial",
+        "Environment": "Production",
+        "Department": "Operations"
+      }
+    },
+    "FilaNotificacoes": {
+      "QueueName": "notificacoes-industrial-queue",
+      "Attributes": {
+        "DelaySeconds": "0",
+        "MaximumMessageSize": "262144",
+        "MessageRetentionPeriod": "86400",
+        "ReceiveMessageWaitTimeSeconds": "0",
+        "VisibilityTimeout": "60"
+      }
+    }
+  },
+  "LambdaConfigurations": {
+    "Ingestao": {
+      "Timeout": 30,
+      "MemorySize": 128,
+      "EnvironmentVariables": {
+        "SQS_QUEUE_URL": "MANUTENCAO_QUEUE_URL",
+        "SNS_TOPIC_ARN": "NOTIFICACAO_TOPIC_ARN",
+        "LOG_LEVEL": "INFO"
+      }
+    },
+    "Processor": {
+      "Timeout": 300,
+      "MemorySize": 512,
+      "EnvironmentVariables": {
+        "S3_BUCKET": "TINYDB_STORAGE_BUCKET",
+        "SNS_TOPIC_ARN": "NOTIFICACAO_TOPIC_ARN",
+        "LOG_LEVEL": "INFO"
+      }
+    },
+    "ConsultaStatus": {
+      "Timeout": 30,
+      "MemorySize": 256,
+      "EnvironmentVariables": {
+        "S3_BUCKET": "TINYDB_STORAGE_BUCKET",
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
