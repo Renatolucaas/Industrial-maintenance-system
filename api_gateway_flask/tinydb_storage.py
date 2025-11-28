@@ -293,3 +293,40 @@ def limpar_todas_solicitacoes(bucket_name):
         return False
     finally:
         storage.close()
+
+        # ========== EXEMPLO DE USO ==========
+
+if __name__ == "__main__":
+    print("🧪 Testando TinyDB com S3...")
+    
+    # Teste da classe
+    try:
+        storage = TinyDBS3Storage("tinydb-storage-123456789")  # Use seu bucket real
+        db = storage.get_database()
+        
+        # Criar tabela de solicitações
+        tabela = db.table('solicitacoes')
+        
+        # Inserir dados de exemplo
+        solicitacao_exemplo = {
+            'solicitacao_id': 'sol_test_001',
+            'operador_id': 'op_test_001',
+            'maquina_id': 'maq_test_001',
+            'tipo_manutencao': 'preventiva',
+            'descricao_problema': 'Teste de sistema',
+            'prioridade': 'media',
+            'status': 'recebida',
+            'timestamp_solicitacao': datetime.now().isoformat()
+        }
+        
+        tabela.insert(solicitacao_exemplo)
+        print("✅ Dados de teste inseridos com sucesso!")
+        
+        # Listar todas
+        todas = tabela.all()
+        print(f"📋 Total de solicitações: {len(todas)}")
+        
+        storage.close()
+        
+    except Exception as e:
+        print(f"❌ Erro no teste: {e}")
