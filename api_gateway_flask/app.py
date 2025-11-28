@@ -336,3 +336,21 @@ def inscrever_email():
             
         except Exception as e:
             return render_template('error.html', error=f"Erro ao inscrever email: {str(e)}")
+        
+       
+       # ========== ROTAS API ==========
+
+@app.route('/api/solicitacao/manutencao', methods=['POST'])
+def criar_solicitacao_route():
+    try:
+        # Dados do formulário
+        dados_solicitacao = {
+            'solicitacao_id': str(uuid.uuid4()),
+            'operador_id': request.form['operador_id'],
+            'maquina_id': request.form['maquina_id'],
+            'tipo_manutencao': request.form['tipo_manutencao'],
+            'prioridade': request.form['prioridade'],
+            'descricao_problema': request.form['descricao_problema'],
+            'status': 'recebida',
+            'timestamp_solicitacao': datetime.now().isoformat()
+        }
