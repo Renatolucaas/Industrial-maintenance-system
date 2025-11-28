@@ -312,3 +312,21 @@ Sistema Automático - Não responder
     </body>
     </html>
     '''
+@app.route('/inscrever-email', methods=['GET', 'POST'])
+def inscrever_email():
+    """Inscrever um email no tópico SNS"""
+    
+    if request.method == 'POST':
+        try:
+            email = request.form['email']
+            
+            # Configurar SNS
+            sns = boto3.client('sns', region_name=SNS_REGION)
+            
+            # Inscrever email no tópico
+            response = sns.subscribe(
+                TopicArn=SNS_TOPIC_ARN,
+                Protocol='email',
+                Endpoint=email,
+                ReturnSubscriptionArn=True
+            )
