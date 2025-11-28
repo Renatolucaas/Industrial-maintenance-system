@@ -106,3 +106,53 @@ class TinyDBS3Storage:
         db.truncate = truncate_with_sync
         
         return db
+    
+     def close(self):
+        """
+        Limpeza do arquivo temporário
+        """
+        if self.local_db_path and os.path.exists(self.local_db_path):
+            try:
+                os.unlink(self.local_db_path)
+            except:
+                pass
+
+# ========== FUNÇÕES PRINCIPAIS ==========
+
+def criar_solicitacao_db(solicitacao_data, bucket_name):
+    """
+    Cria nova solicitação no database
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        
+        solicitacao_id = tabela.insert(solicitacao_data)
+        logger.info(f"Solicitação {solicitacao_id} salva no database")
+        
+        return solicitacao_id
+    except Exception as e:
+        logger.error(f"Erro ao criar solicitação: {str(e)}")
+        raise e
+    finally:
+        storage.close()
+
+def buscar_solicitacao_por_id(solicitacao_id, bucket_name):
+    """
+    Busca solicitação por ID
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        
+        Solicitacao = Query()
+        resultado = tabela.get(Solicitacao.solicitacao_id == solicitacao_id)
+        
+        return resultado
+    except Exception as e:
+        logger.error(f"Erro ao buscar solicitação: {str(e)}")
+        return None
+    finally:
+        storage.close()
