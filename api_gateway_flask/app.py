@@ -6,3 +6,11 @@ from datetime import datetime
 import json
 
 app = Flask(__name__)
+
+# ========== CONFIGURAÇÃO INTELIGENTE ==========
+
+def detectar_ambiente():
+    
+    """
+    Detecta automaticamente se estamos em ambiente AWS ou desenvolvimento local
+    """
