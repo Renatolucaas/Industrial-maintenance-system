@@ -86,3 +86,6 @@ Sistema de Manutenção Industrial
         
         print(f"✅ Notificação SNS enviada: {response['MessageId']}")
         return True
+    except Exception as e:
+        print(f"❌ Erro ao enviar notificação SNS: {e}")
+        return Falsead
