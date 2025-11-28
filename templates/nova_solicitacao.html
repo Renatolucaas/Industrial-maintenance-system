@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>📝 Nova Solicitação de Manutenção</h4>
+            </div>
+            <div class="card-body">
+                <form action="/api/solicitacao/manutencao" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Operador ID *</label>
+                                <input type="text" class="form-control" name="operador_id" required placeholder="Ex: op_001">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Máquina ID *</label>
+                                <input type="text" class="form-control" name="maquina_id" required placeholder="Ex: maq_123">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Manutenção *</label>
+                                <select class="form-select" name="tipo_manutencao" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="preventiva">Preventiva</option>
+                                    <option value="corretiva">Corretiva</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Prioridade</label>
+                                <select class="form-select" name="prioridade">
+                                    <option value="baixa">Baixa</option>
+                                    <option value="media" selected>Média</option>
+                                    <option value="alta">Alta</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Descrição do Problema *</label>
+                        <textarea class="form-control" name="descricao_problema" rows="4" required placeholder="Descreva o problema..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">📨 Enviar Solicitação</button>
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

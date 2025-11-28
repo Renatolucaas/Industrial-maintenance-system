@@ -42,7 +42,7 @@ def lambda_handler(event, context):
             'statusCode': 500,
             'body': json.dumps({'error': str(e)})
         }
-    def buscar_status_s3(solicitacao_id):
+def buscar_status_s3(solicitacao_id):
     """Busca do S3 (produção)"""
     with tempfile.NamedTemporaryFile(mode='w+b', suffix='.json', delete=False) as tmp_file:
         try:
