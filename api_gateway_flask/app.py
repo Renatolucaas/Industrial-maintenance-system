@@ -37,3 +37,17 @@ def detectar_ambiente():
 
 AMBIENTE, BUCKET_NAME = detectar_ambiente()
 print(f"🎯 Ambiente detectado: {AMBIENTE.upper()}")
+
+# ========== CONFIGURAÇÃO SNS ==========
+
+# Configuração do SNS - COM SEU ARN REAL
+SNS_TOPIC_ARN = 'arn:aws:sns:us-east-2:626064810617:age-estimation-system-dev-notifications'
+SNS_REGION = 'us-east-2'
+
+def enviar_notificacao_sns(solicitacao):
+    """Envia notificação via SNS quando uma solicitação é criada"""
+    try:
+        sns = boto3.client('sns', region_name=SNS_REGION)
+        
+        mensagem = f"""
+🚨 NOVA SOLICITAÇÃO DE MANUTENÇÃO CRIADA 🚨
