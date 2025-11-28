@@ -57,3 +57,23 @@ def enviar_notificacao_sns(solicitacao):
 📝 Tipo: {solicitacao['tipo_manutencao'].title()}
 ⚡ Prioridade: {solicitacao['prioridade'].title()}
 👤 Operador: {solicitacao['operador_id']}
+
+📄 Descrição do Problema:
+{solicitacao['descricao_problema']}
+
+⏰ Data/Hora: {solicitacao['timestamp_solicitacao']}
+📊 Status: 📥 Recebida
+
+---
+Sistema de Manutenção Industrial
+"""
+        
+        response = sns.publish(
+            TopicArn=SNS_TOPIC_ARN,
+            Message=mensagem,
+            Subject=f"🔧 Nova Solicitação - {solicitacao['maquina_id']}",
+            MessageAttributes={
+                'Prioridade': {
+                    'DataType': 'String',
+                    'StringValue': solicitacao['prioridade']
+                },
