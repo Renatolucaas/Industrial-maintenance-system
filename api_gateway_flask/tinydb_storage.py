@@ -28,3 +28,12 @@ class TinyDBS3Storage:
             # Criar arquivo temporário
             temp_file = tempfile.NamedTemporaryFile(mode='w+b', suffix='.json', delete=False)
             self.local_db_path = temp_file.name
+             # Download do S3
+            self.s3_client.download_fileobj(self.bucket_name, self.s3_key, temp_file)
+            temp_file.seek(0)
+            
+            logger.info(f"Database baixado do S3: {self.s3_key}")
+            return True
+            
+        except self.s3_client.exceptions.NoSuchKey:
+            logger.info("Arquivo não encontrado no S3, criando novo database")
