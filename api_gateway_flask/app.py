@@ -112,3 +112,10 @@ def salvar_dados(dados):
      except Exception as e:
         print(f"Erro ao salvar dados: {e}")
         return False
+    
+def criar_solicitacao_local(solicitacao_data):
+    """Cria nova solicitação no banco local"""
+        dados = carregar_dados()
+        dados['solicitacoes'].append(solicitacao_data)
+        salvar_dados(dados)
+        return solicitacao_data['solicitacao_id']
