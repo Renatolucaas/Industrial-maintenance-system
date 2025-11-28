@@ -51,3 +51,9 @@ def enviar_notificacao_sns(solicitacao):
         
         mensagem = f"""
 🚨 NOVA SOLICITAÇÃO DE MANUTENÇÃO CRIADA 🚨
+
+📋 ID da Solicitação: {solicitacao['solicitacao_id']}
+🔧 Máquina: {solicitacao['maquina_id']}
+📝 Tipo: {solicitacao['tipo_manutencao'].title()}
+⚡ Prioridade: {solicitacao['prioridade'].title()}
+👤 Operador: {solicitacao['operador_id']}
