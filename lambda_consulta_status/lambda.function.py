@@ -18,4 +18,27 @@ except KeyError:
 
 def lambda_handler(event, context):
     solicitacao_id = event['queryStringParameters']['solicitacao_id']
-    
+    try:
+        if AWS_MODE:
+            # Buscar do S3 (produção)
+            status = buscar_status_s3(solicitacao_id)
+        else:
+            # Buscar localmente (desenvolvimento)
+            status = buscar_status_local(solicitacao_id)
+        
+        if status:
+            return {
+                'statusCode': 200,
+                'body': json.dumps(status)
+            }
+        else:
+            return {
+                'statusCode': 404,
+                'body': json.dumps({'error': 'Solicitação não encontrada'})
+            }
+            
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
+        }
