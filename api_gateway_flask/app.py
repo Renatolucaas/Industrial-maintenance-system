@@ -145,4 +145,15 @@ def obter_metricas_gerais_local():
         metricas['por_tipo'][tipo] = metricas['por_tipo'].get(tipo, 0) + 1
     
     return metricas
+# ========== BANCO DE DADOS AWS S3 ==========
+
+def criar_solicitacao_aws(solicitacao_data):
+    """Cria nova solicitação no S3"""
+    try:
+        from tinydb_storage import criar_solicitacao_db
+        return criar_solicitacao_db(solicitacao_data, BUCKET_NAME)
+    except Exception as e:
+        print(f"❌ Erro ao salvar no S3: {e}")
+        # Fallback para local
+        return criar_solicitacao_local(solicitacao_data)
     
