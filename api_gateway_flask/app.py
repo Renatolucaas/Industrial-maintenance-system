@@ -196,3 +196,8 @@ def obter_metricas():
 def home():
     return render_template('index.html')
 
+@app.route('/nova-solicitacao', methods=['GET'])
+def nova_solicitacao():
+    return render_template('nova_solicitacao.html')
+
+
