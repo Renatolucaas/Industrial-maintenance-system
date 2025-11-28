@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>📋 Todas as Solicitações</h2>
+        
+        {% if solicitacoes %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Máquina</th>
+                        <th>Tipo</th>
+                        <th>Prioridade</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solic in solicitacoes %}
+                    <tr>
+                        <td><small>{{ solic.solicitacao_id[:8] }}...</small></td>
+                        <td>{{ solic.maquina_id }}</td>
+                        <td>
+                            {% if solic.tipo_manutencao == 'preventiva' %}
+                                <span class="badge bg-info">Preventiva</span>
+                            {% else %}
+                                <span class="badge bg-warning">Corretiva</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if solic.prioridade == 'alta' %}
+                                <span class="badge bg-danger">Alta</span>
+                            {% elif solic.prioridade == 'media' %}
+                                <span class="badge bg-warning">Média</span>
+                            {% else %}
+                                <span class="badge bg-success">Baixa</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-primary">{{ solic.status }}</span>
+                        </td>
+                        <td>{{ solic.timestamp_solicitacao[:16] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <h4>📭 Nenhuma solicitação encontrada</h4>
+            <p>Comece criando sua primeira solicitação de manutenção.</p>
+            <a href="/nova-solicitacao" class="btn btn-primary">Criar Primeira Solicitação</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

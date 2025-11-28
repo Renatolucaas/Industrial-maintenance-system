@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h4><i class="fas fa-check-circle"></i> Sucesso!</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5 class="text-success">{{ mensagem }}</h5>
+                <p><strong>ID da Solicitação:</strong> <code>{{ solicitacao_id }}</code></p>
+                <p>Guarde este ID para acompanhar o status da sua solicitação.</p>
+                
+                <div class="mt-4">
+                    <a href="/solicitacoes" class="btn btn-primary">
+                        <i class="fas fa-list"></i> Ver Todas Solicitações
+                    </a>
+                    <a href="/nova-solicitacao" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Nova Solicitação
+                    </a>
+                    <a href="/" class="btn btn-secondary">Página Inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
