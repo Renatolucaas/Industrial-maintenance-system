@@ -365,5 +365,8 @@ def criar_solicitacao_route():
         return render_template('sucesso.html', 
                              mensagem="Solicitação criada com sucesso!",
                              solicitacao_id=dados_solicitacao['solicitacao_id'])
+    except Exception as e:
+        return render_template('error.html', error=f"Erro ao criar solicitação: {str(e)}")
+
         
         
