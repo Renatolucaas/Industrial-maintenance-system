@@ -189,4 +189,10 @@ def obter_metricas():
         return obter_metricas_gerais_aws()
     else:
         return obter_metricas_gerais_local()
+    
+    # ========== ROTAS DE PÁGINAS ==========
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('index.html')
 
