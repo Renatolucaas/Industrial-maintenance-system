@@ -71,3 +71,38 @@ class TinyDBS3Storage:
             success = self._download_from_s3()
             if not success:
                 raise Exception("Falha ao inicializar database do S3")
+            
+             db = TinyDB(self.local_db_path)
+        
+        # Monkey patch para sync automático
+        original_insert = db.insert
+        original_update = db.update
+        original_remove = db.remove
+        original_truncate = db.truncate
+        
+        def insert_with_sync(document):
+            result = original_insert(document)
+            self._upload_to_s3()
+            return result
+        
+        def update_with_sync(fields, cond=None):
+            result = original_update(fields, cond)
+            self._upload_to_s3()
+            return result
+        
+        def remove_with_sync(cond=None):
+            result = original_remove(cond)
+            self._upload_to_s3()
+            return result
+        
+        def truncate_with_sync():
+            result = original_truncate()
+            self._upload_to_s3()
+            return result
+        
+        db.insert = insert_with_sync
+        db.update = update_with_sync
+        db.remove = remove_with_sync
+        db.truncate = truncate_with_sync
+        
+        return db
