@@ -200,4 +200,12 @@ def home():
 def nova_solicitacao():
     return render_template('nova_solicitacao.html')
 
+@app.route('/solicitacoes', methods=['GET'])
+def listar_solicitacoes_route():
+    try:
+        todas_solicitacoes = listar_solicitacoes()
+        return render_template('solicitacoes.html', solicitacoes=todas_solicitacoes)
+    except Exception as e:
+        return render_template('error.html', error=f"Erro ao carregar solicitações: {str(e)}")
+
 
