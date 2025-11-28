@@ -183,4 +183,10 @@ def criar_solicitacao(solicitacao_data):
         return criar_solicitacao_aws(solicitacao_data)
     else:
         return criar_solicitacao_local(solicitacao_data)
+def obter_metricas():
+    """Obtém métricas do ambiente apropriado"""
+    if AMBIENTE == "aws":
+        return obter_metricas_gerais_aws()
+    else:
+        return obter_metricas_gerais_local()
 
