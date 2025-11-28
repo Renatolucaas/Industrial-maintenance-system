@@ -4,3 +4,14 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4>❌ Ocorreu um Erro</h4>
+            </div>
+            <div class="card-body text-center">
+                <p class="text-danger">{{ error }}</p>
+                <a href="/" class="btn btn-primary">Página Inicial</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
