@@ -178,3 +178,48 @@ def listar_todas_solicitacoes(bucket_name):
         storage.close()
 
 def atualizar_status_solicitacao(solicitacao_id, novo_status, bucket_name, tecnico_responsavel=None):
+    """
+    Atualiza status da solicitação
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        
+        Solicitacao = Query()
+        updates = {
+            'status': novo_status,
+            'timestamp_atualizacao': datetime.now().isoformat()
+        }
+        
+        if tecnico_responsavel:
+            updates['tecnico_responsavel'] = tecnico_responsavel
+        
+        tabela.update(updates, Solicitacao.solicitacao_id == solicitacao_id)
+        logger.info(f"Status da solicitação {solicitacao_id} atualizado para {novo_status}")
+        
+        return True
+    except Exception as e:
+        logger.error(f"Erro ao atualizar status: {str(e)}")
+        return False
+    finally:
+        storage.close()
+
+def listar_solicitacoes_por_filtro(filtro, valor, bucket_name):
+    """
+    Lista solicitações por filtro específico
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        
+        Solicitacao = Query()
+        resultados = tabela.search(getattr(Solicitacao, filtro) == valor)
+        
+        return resultados
+    except Exception as e:
+        logger.error(f"Erro ao filtrar solicitações: {str(e)}")
+        return []
+    finally:
+        storage.close()
