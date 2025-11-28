@@ -165,4 +165,9 @@ def listar_todas_solicitacoes_aws():
         print(f"❌ Erro ao carregar do S3: {e}")
         # Fallback para local
         return listar_todas_solicitacoes_local()
+def obter_metricas_gerais_aws():
+    """Obtém métricas do sistema do S3"""
+    try:
+        from tinydb_storage import obter_metricas_gerais
+        return obter_metricas_gerais(BUCKET_NAME)
     
