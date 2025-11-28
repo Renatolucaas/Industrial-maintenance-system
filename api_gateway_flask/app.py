@@ -357,4 +357,13 @@ def criar_solicitacao_route():
 
         # Salvar no banco de dados
         solicitacao_id = criar_solicitacao(dados_solicitacao)
+
+         # 🔔 ENVIAR NOTIFICAÇÃO SNS
+        enviar_notificacao_sns(dados_solicitacao)
+        
+        # Redirecionar para página de sucesso
+        return render_template('sucesso.html', 
+                             mensagem="Solicitação criada com sucesso!",
+                             solicitacao_id=dados_solicitacao['solicitacao_id'])
+        
         
