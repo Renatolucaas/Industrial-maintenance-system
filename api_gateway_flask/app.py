@@ -267,3 +267,48 @@ Sistema Automático - Não responder
             
         except Exception as e:
             return render_template('error.html', error=f"Erro ao enviar email: {str(e)}")
+         # GET - Mostrar formulário de teste
+    return '''
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Teste de Email - SNS</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4>📧 Teste de Notificação por Email</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Esta página testa o envio de notificações via Amazon SNS.</p>
+                            
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label">Email para teste (opcional):</label>
+                                    <input type="email" class="form-control" name="email" 
+                                           placeholder="seu-email@empresa.com" 
+                                           value="seu-email@empresa.com">
+                                    <div class="form-text">Se você já está inscrito no tópico SNS, receberá o email.</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Mensagem de teste:</label>
+                                    <textarea class="form-control" name="mensagem" rows="3">Esta é uma mensagem de teste do Sistema de Manutenção Industrial. Se você recebeu este email, o sistema de notificações está funcionando!</textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-success">📨 Enviar Email de Teste</button>
+                                <a href="/inscrever-email" class="btn btn-info">📝 Inscrever Email</a>
+                                <a href="/" class="btn btn-secondary">Voltar</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    '''
