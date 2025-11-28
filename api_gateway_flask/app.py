@@ -207,5 +207,13 @@ def listar_solicitacoes_route():
         return render_template('solicitacoes.html', solicitacoes=todas_solicitacoes)
     except Exception as e:
         return render_template('error.html', error=f"Erro ao carregar solicitações: {str(e)}")
+    
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    try:
+        metricas = obter_metricas()
+        return render_template('dashboard.html', metricas=metricas)
+    except Exception as e:
+        return render_template('error.html', error=f"Erro ao carregar dashboard: {str(e)}")
 
 
