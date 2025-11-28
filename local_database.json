@@ -8,7 +8,57 @@
       "descricao_problema": "Sistema inicializado com dados de exemplo",
       "prioridade": "media",
       "status": "concluida",
-      "timestamp_solicitacao": "2025-11-28T11:44:17.329937"
+      "timestamp_solicitacao": "2025-11-27T14:35:02.156201"
+    },
+    {
+      "solicitacao_id": "72abb857-14b2-4694-9958-1b500be06416",
+      "operador_id": "12345",
+      "maquina_id": "maq_1",
+      "tipo_manutencao": "preventiva",
+      "prioridade": "baixa",
+      "descricao_problema": "desalinhamento de motor",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-27T14:37:07.937621"
+    },
+    {
+      "solicitacao_id": "0c9017af-ac1f-46cb-817b-5847f9ffcddc",
+      "operador_id": "mavi",
+      "maquina_id": "mavi1",
+      "tipo_manutencao": "corretiva",
+      "prioridade": "alta",
+      "descricao_problema": "Teste motor parado",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-27T15:59:45.068956"
+    },
+    {
+      "solicitacao_id": "0fc07cfd-95a0-462f-a6ad-34f284ccf97d",
+      "operador_id": "qw1234",
+      "maquina_id": "maq_123",
+      "tipo_manutencao": "corretiva",
+      "prioridade": "alta",
+      "descricao_problema": "quebra de cabo da ponte principal",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-27T18:07:59.985973"
+    },
+    {
+      "solicitacao_id": "db2e5ff7-b6b3-4696-a99e-aaf474f1d68a",
+      "operador_id": "jules_1245",
+      "maquina_id": "maq_7890",
+      "tipo_manutencao": "preventiva",
+      "prioridade": "baixa",
+      "descricao_problema": "Troca de gaxeta moto lp4",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-27T18:19:01.372977"
+    },
+    {
+      "solicitacao_id": "c243cc7e-3062-4923-989c-bea3087535ff",
+      "operador_id": "ren_27",
+      "maquina_id": "correia transportadora",
+      "tipo_manutencao": "preventiva",
+      "prioridade": "alta",
+      "descricao_problema": "correia apresenta desgaste e rupturas em sua base.",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T16:44:43.709987"
     }
   ]
 }

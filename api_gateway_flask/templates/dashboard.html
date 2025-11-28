@@ -6,23 +6,25 @@
         <h2>📊 Dashboard - Métricas do Sistema</h2>
     </div>
 </div>
+
 <div class="row mt-4">
     <div class="col-md-3">
-        div class="card text-white bg-primary">
+        <div class="card text-white bg-primary">
             <div class="card-body text-center">
                 <h4>📋</h4>
                 <h5>Total Solicitações</h5>
                 <h2>{{ metricas.total_solicitacoes }}</h2>
-                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="row mt-4">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
                 <h5>📈 Por Status</h5>
-                </div>
+            </div>
             <div class="card-body">
                 <table class="table">
                     {% for status, count in metricas.por_status.items() %}
@@ -35,7 +37,8 @@
             </div>
         </div>
     </div>
-<div class="col-md-6">
+
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header">
                 <h5>⚡ Por Prioridade</h5>
@@ -58,7 +61,7 @@
                     {% endfor %}
                 </table>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

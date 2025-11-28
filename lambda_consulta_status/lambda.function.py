@@ -18,6 +18,7 @@ except KeyError:
 
 def lambda_handler(event, context):
     solicitacao_id = event['queryStringParameters']['solicitacao_id']
+    
     try:
         if AWS_MODE:
             # Buscar do S3 (produção)
@@ -42,6 +43,7 @@ def lambda_handler(event, context):
             'statusCode': 500,
             'body': json.dumps({'error': str(e)})
         }
+
 def buscar_status_s3(solicitacao_id):
     """Busca do S3 (produção)"""
     with tempfile.NamedTemporaryFile(mode='w+b', suffix='.json', delete=False) as tmp_file:

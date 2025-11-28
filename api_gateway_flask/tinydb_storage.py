@@ -28,7 +28,8 @@ class TinyDBS3Storage:
             # Criar arquivo temporário
             temp_file = tempfile.NamedTemporaryFile(mode='w+b', suffix='.json', delete=False)
             self.local_db_path = temp_file.name
-             # Download do S3
+            
+            # Download do S3
             self.s3_client.download_fileobj(self.bucket_name, self.s3_key, temp_file)
             temp_file.seek(0)
             
@@ -44,6 +45,7 @@ class TinyDBS3Storage:
         except Exception as e:
             logger.error(f"Erro ao baixar do S3: {str(e)}")
             return False
+    
     def _upload_to_s3(self):
         """
         Upload do arquivo JSON local para S3
@@ -62,7 +64,7 @@ class TinyDBS3Storage:
         except Exception as e:
             logger.error(f"Erro ao enviar para S3: {str(e)}")
             return False
-        
+    
     def get_database(self):
         """
         Retorna instância do TinyDB com sync automático no S3
@@ -71,8 +73,8 @@ class TinyDBS3Storage:
             success = self._download_from_s3()
             if not success:
                 raise Exception("Falha ao inicializar database do S3")
-            
-            db = TinyDB(self.local_db_path)
+        
+        db = TinyDB(self.local_db_path)
         
         # Monkey patch para sync automático
         original_insert = db.insert
@@ -294,7 +296,7 @@ def limpar_todas_solicitacoes(bucket_name):
     finally:
         storage.close()
 
-        # ========== EXEMPLO DE USO ==========
+# ========== EXEMPLO DE USO ==========
 
 if __name__ == "__main__":
     print("🧪 Testando TinyDB com S3...")
