@@ -175,3 +175,12 @@ def obter_metricas_gerais_aws():
         # Fallback para local
         return obter_metricas_gerais_local()
     
+    # ========== FUNÇÕES UNIFICADAS ==========
+
+def criar_solicitacao(solicitacao_data):
+    """Cria solicitação no ambiente apropriado"""
+    if AMBIENTE == "aws":
+        return criar_solicitacao_aws(solicitacao_data)
+    else:
+        return criar_solicitacao_local(solicitacao_data)
+
