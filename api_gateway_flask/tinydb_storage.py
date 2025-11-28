@@ -62,3 +62,12 @@ class TinyDBS3Storage:
         except Exception as e:
             logger.error(f"Erro ao enviar para S3: {str(e)}")
             return False
+        
+    def get_database(self):
+        """
+        Retorna instância do TinyDB com sync automático no S3
+        """
+        if not self.local_db_path:
+            success = self._download_from_s3()
+            if not success:
+                raise Exception("Falha ao inicializar database do S3")
