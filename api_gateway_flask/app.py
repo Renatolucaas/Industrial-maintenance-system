@@ -119,3 +119,9 @@ def criar_solicitacao_local(solicitacao_data):
         dados['solicitacoes'].append(solicitacao_data)
         salvar_dados(dados)
         return solicitacao_data['solicitacao_id']
+def listar_todas_solicitacoes_local():
+    """Lista todas as solicitações do banco local"""
+    dados = carregar_dados()
+    solicitacoes = dados.get('solicitacoes', [])
+    solicitacoes.sort(key=lambda x: x.get('timestamp_solicitacao', ''), reverse=True)
+    return solicitacoes
