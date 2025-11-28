@@ -1,0 +1,14 @@
+{
+  "solicitacoes": [
+    {
+      "solicitacao_id": "sol_exemplo_001",
+      "operador_id": "op_001",
+      "maquina_id": "maq_001",
+      "tipo_manutencao": "preventiva",
+      "descricao_problema": "Sistema inicializado com dados de exemplo",
+      "prioridade": "media",
+      "status": "concluida",
+      "timestamp_solicitacao": "2025-11-28T11:44:17.329937"
+    }
+  ]
+}
