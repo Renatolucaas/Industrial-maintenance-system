@@ -24,3 +24,7 @@ class TinyDBS3Storage:
         """
         Download do arquivo JSON do S3 para arquivo temporário local
         """
+        try:
+            # Criar arquivo temporário
+            temp_file = tempfile.NamedTemporaryFile(mode='w+b', suffix='.json', delete=False)
+            self.local_db_path = temp_file.name
