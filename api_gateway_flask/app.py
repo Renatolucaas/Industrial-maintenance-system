@@ -330,3 +330,9 @@ def inscrever_email():
                 Endpoint=email,
                 ReturnSubscriptionArn=True
             )
+            return render_template('sucesso.html', 
+                                mensagem=f"Email {email} inscrito com sucesso! Verifique sua caixa de entrada para confirmar a inscrição.",
+                                solicitacao_id=response['SubscriptionArn'])
+            
+        except Exception as e:
+            return render_template('error.html', error=f"Erro ao inscrever email: {str(e)}")
