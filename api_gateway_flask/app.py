@@ -109,3 +109,6 @@ def salvar_dados(dados):
         with open(DB_FILE, 'w', encoding='utf-8') as f:
             json.dump(dados, f, indent=2, ensure_ascii=False)
         return True
+     except Exception as e:
+        print(f"Erro ao salvar dados: {e}")
+        return False
