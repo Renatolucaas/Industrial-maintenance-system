@@ -44,3 +44,21 @@ class TinyDBS3Storage:
         except Exception as e:
             logger.error(f"Erro ao baixar do S3: {str(e)}")
             return False
+    def _upload_to_s3(self):
+        """
+        Upload do arquivo JSON local para S3
+        """
+        try:
+            if self.local_db_path and os.path.exists(self.local_db_path):
+                with open(self.local_db_path, 'rb') as file_data:
+                    self.s3_client.upload_fileobj(
+                        file_data, 
+                        self.bucket_name, 
+                        self.s3_key
+                    )
+                logger.info(f"Database enviado para S3: {self.s3_key}")
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"Erro ao enviar para S3: {str(e)}")
+            return False
