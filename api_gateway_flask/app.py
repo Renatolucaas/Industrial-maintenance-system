@@ -109,7 +109,7 @@ def salvar_dados(dados):
         with open(DB_FILE, 'w', encoding='utf-8') as f:
             json.dump(dados, f, indent=2, ensure_ascii=False)
         return True
-     except Exception as e:
+    except Exception as e:
         print(f"Erro ao salvar dados: {e}")
         return False
     
@@ -249,5 +249,16 @@ de notificações está funcionando corretamente.
 ---
 Sistema Automático - Não responder
 """
-
+# Publicar no SNS
+            response = sns.publish(
+                TopicArn=SNS_TOPIC_ARN,
+                Message=mensagem_completa,
+                Subject="🔔 TESTE - Sistema de Manutenção Industrial",
+                MessageAttributes={
+                    'TipoTeste': {
+                        'DataType': 'String',
+                        'StringValue': 'NotificacaoEmail'
+                    }
+                }
+            )
 
