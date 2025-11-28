@@ -156,4 +156,9 @@ def criar_solicitacao_aws(solicitacao_data):
         print(f"❌ Erro ao salvar no S3: {e}")
         # Fallback para local
         return criar_solicitacao_local(solicitacao_data)
+def listar_todas_solicitacoes_aws():
+    """Lista todas as solicitações do S3"""
+    try:
+        from tinydb_storage import listar_todas_solicitacoes
+        return listar_todas_solicitacoes(BUCKET_NAME)
     
