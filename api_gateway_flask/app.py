@@ -136,4 +136,13 @@ def obter_metricas_gerais_local():
         'por_tipo': {},
         'ultimas_24h': 0
     }
+    for solic in solicitacoes:
+        status = solic.get('status', 'desconhecido')
+        metricas['por_status'][status] = metricas['por_status'].get(status, 0) + 1
+        prioridade = solic.get('prioridade', 'nao_informada')
+        metricas['por_prioridade'][prioridade] = metricas['por_prioridade'].get(prioridade, 0) + 1
+        tipo = solic.get('tipo_manutencao', 'nao_informado')
+        metricas['por_tipo'][tipo] = metricas['por_tipo'].get(tipo, 0) + 1
+    
+    return metricas
     
