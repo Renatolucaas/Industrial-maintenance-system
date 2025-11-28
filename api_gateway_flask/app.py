@@ -407,4 +407,22 @@ def criar_dados_exemplo():
     except Exception as e:
         print(f"⚠️ Não foi possível criar dados exemplo: {e}")
 
+        if __name__ == '__main__':
+    # Criar alguns dados de exemplo ao iniciar
+    criar_dados_exemplo()
+    
+    print("🚀 Servidor Flask iniciando...")
+    print(f"🎯 Ambiente: {AMBIENTE.upper()}")
+    print(f"💾 Storage: {'S3' if AMBIENTE == 'aws' else 'Local JSON'}")
+    print(f"📧 SNS Configurado: {SNS_TOPIC_ARN}")
+    print("📍 URLs disponíveis:")
+    print("   📊 Dashboard: http://localhost:5000/dashboard")
+    print("   📋 Solicitações: http://localhost:5000/solicitacoes") 
+    print("   ➕ Nova Solicitação: http://localhost:5000/nova-solicitacao")
+    print("   📧 Teste Email: http://localhost:5000/teste-email")
+    print("   📝 Inscrever Email: http://localhost:5000/inscrever-email")
+    print("   🏠 Página Inicial: http://localhost:5000/")
+    
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
         
