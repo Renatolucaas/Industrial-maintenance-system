@@ -161,4 +161,8 @@ def listar_todas_solicitacoes_aws():
     try:
         from tinydb_storage import listar_todas_solicitacoes
         return listar_todas_solicitacoes(BUCKET_NAME)
+     except Exception as e:
+        print(f"❌ Erro ao carregar do S3: {e}")
+        # Fallback para local
+        return listar_todas_solicitacoes_local()
     
