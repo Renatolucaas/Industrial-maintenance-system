@@ -215,5 +215,11 @@ def dashboard():
         return render_template('dashboard.html', metricas=metricas)
     except Exception as e:
         return render_template('error.html', error=f"Erro ao carregar dashboard: {str(e)}")
+    
+    # ========== ROTAS SNS - NOTIFICAÇÕES ==========
+
+@app.route('/teste-email', methods=['GET', 'POST'])
+def teste_email():
+    """Página para testar envio de emails via SNS"""
 
 
