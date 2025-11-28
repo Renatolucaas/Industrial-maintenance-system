@@ -223,3 +223,73 @@ def listar_solicitacoes_por_filtro(filtro, valor, bucket_name):
         return []
     finally:
         storage.close()
+
+        def obter_metricas_gerais(bucket_name):
+    """
+    Obtém métricas gerais do sistema
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        
+        todas_solicitacoes = tabela.all()
+        
+        metricas = {
+            'total_solicitacoes': len(todas_solicitacoes),
+            'por_status': {},
+            'por_prioridade': {},
+            'por_tipo': {},
+            'por_maquina': {},
+            'ultimas_24h': 0
+        }
+        
+        # Calcular métricas
+        for solic in todas_solicitacoes:
+            # Por status
+            status = solic.get('status', 'desconhecido')
+            metricas['por_status'][status] = metricas['por_status'].get(status, 0) + 1
+            
+            # Por prioridade
+            prioridade = solic.get('prioridade', 'nao_informada')
+            metricas['por_prioridade'][prioridade] = metricas['por_prioridade'].get(prioridade, 0) + 1
+            
+            # Por tipo
+            tipo = solic.get('tipo_manutencao', 'nao_informado')
+            metricas['por_tipo'][tipo] = metricas['por_tipo'].get(tipo, 0) + 1
+            
+            # Por máquina
+            maquina = solic.get('maquina_id', 'desconhecida')
+            metricas['por_maquina'][maquina] = metricas['por_maquina'].get(maquina, 0) + 1
+        
+        return metricas
+    except Exception as e:
+        logger.error(f"Erro ao obter métricas: {str(e)}")
+        # Retornar métricas vazias em caso de erro
+        return {
+            'total_solicitacoes': 0,
+            'por_status': {},
+            'por_prioridade': {},
+            'por_tipo': {},
+            'por_maquina': {},
+            'ultimas_24h': 0
+        }
+    finally:
+        storage.close()
+
+def limpar_todas_solicitacoes(bucket_name):
+    """
+    Limpa todas as solicitações (apenas para desenvolvimento)
+    """
+    storage = TinyDBS3Storage(bucket_name)
+    try:
+        db = storage.get_database()
+        tabela = db.table('solicitacoes')
+        tabela.truncate()
+        logger.info("Todas as solicitações foram removidas")
+        return True
+    except Exception as e:
+        logger.error(f"Erro ao limpar solicitações: {str(e)}")
+        return False
+    finally:
+        storage.close()
