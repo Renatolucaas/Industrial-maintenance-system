@@ -95,3 +95,11 @@ DB_FILE = 'local_database.json'
 
 def carregar_dados():
     """Carrega dados do arquivo JSON local"""
+    try:
+        if os.path.exists(DB_FILE):
+            with open(DB_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+    except Exception as e:
+        print(f"Erro ao carregar dados: {e}")
+    
+    return {'solicitacoes': []}
