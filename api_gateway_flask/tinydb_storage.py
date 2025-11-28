@@ -37,3 +37,10 @@ class TinyDBS3Storage:
             
         except self.s3_client.exceptions.NoSuchKey:
             logger.info("Arquivo não encontrado no S3, criando novo database")
+            # Criar arquivo vazio
+            with open(self.local_db_path, 'w') as f:
+                json.dump({}, f)
+            return True
+        except Exception as e:
+            logger.error(f"Erro ao baixar do S3: {str(e)}")
+            return False
