@@ -26,3 +26,12 @@
             <div class="card-body">
                 <table class="table">
                     {% for status, count in metricas.por_status.items() %}
+                    <tr>
+                        <td><strong>{{ status }}</strong></td>
+                        <td>{{ count }} solicitações</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
