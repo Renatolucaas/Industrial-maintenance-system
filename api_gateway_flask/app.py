@@ -115,13 +115,25 @@ def salvar_dados(dados):
     
 def criar_solicitacao_local(solicitacao_data):
     """Cria nova solicitação no banco local"""
-        dados = carregar_dados()
-        dados['solicitacoes'].append(solicitacao_data)
-        salvar_dados(dados)
-        return solicitacao_data['solicitacao_id']
+    dados = carregar_dados()
+    dados['solicitacoes'].append(solicitacao_data)
+    salvar_dados(dados)
+    return solicitacao_data['solicitacao_id']
 def listar_todas_solicitacoes_local():
     """Lista todas as solicitações do banco local"""
     dados = carregar_dados()
     solicitacoes = dados.get('solicitacoes', [])
     solicitacoes.sort(key=lambda x: x.get('timestamp_solicitacao', ''), reverse=True)
     return solicitacoes
+
+def obter_metricas_gerais_local():
+    """Obtém métricas do sistema do banco local"""
+    solicitacoes = listar_todas_solicitacoes_local()
+    metricas = {
+        'total_solicitacoes': len(solicitacoes),
+        'por_status': {},
+        'por_prioridade': {},
+        'por_tipo': {},
+        'ultimas_24h': 0
+    }
+    
