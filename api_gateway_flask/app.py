@@ -103,3 +103,9 @@ def carregar_dados():
         print(f"Erro ao carregar dados: {e}")
     
     return {'solicitacoes': []}
+def salvar_dados(dados):
+    """Salva dados no arquivo JSON local"""
+    try:
+        with open(DB_FILE, 'w', encoding='utf-8') as f:
+            json.dump(dados, f, indent=2, ensure_ascii=False)
+        return True
