@@ -367,6 +367,17 @@ def criar_solicitacao_route():
                              solicitacao_id=dados_solicitacao['solicitacao_id'])
     except Exception as e:
         return render_template('error.html', error=f"Erro ao criar solicitação: {str(e)}")
+    
+    # Rota de health check
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        "status": "servidor Flask funcionando!",
+        "ambiente": AMBIENTE,
+        "storage": "S3" if AMBIENTE == "aws" else "Local",
+        "sns_topic": SNS_TOPIC_ARN,
+        "sns_region": SNS_REGION
+    }), 200
 
         
         
