@@ -30,3 +30,10 @@ def detectar_ambiente():
         except:
             print("⚠️ Bucket S3 não encontrado, usando modo local")
             return "local", None
+        
+    except Exception as e:
+        print(f"⚠️ AWS não configurada, usando modo local: {e}")
+        return "local", None
+
+AMBIENTE, BUCKET_NAME = detectar_ambiente()
+print(f"🎯 Ambiente detectado: {AMBIENTE.upper()}")
