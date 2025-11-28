@@ -222,4 +222,16 @@ def dashboard():
 def teste_email():
     """Página para testar envio de emails via SNS"""
 
+    if request.method == 'POST':
+        try:
+            # Dados do formulário
+            email_destino = request.form.get('email', 'seu-email@empresa.com')
+            mensagem_teste = request.form.get('mensagem', 'Esta é uma mensagem de teste do Sistema de Manutenção Industrial')
+            
+            # Configurar SNS
+            sns = boto3.client('sns', region_name=SNS_REGION)
+            
+            # Mensagem de teste
+            mensagem_completa = f"""
+
 
