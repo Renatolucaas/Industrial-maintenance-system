@@ -59,6 +59,56 @@
       "descricao_problema": "correia apresenta desgaste e rupturas em sua base.",
       "status": "recebida",
       "timestamp_solicitacao": "2025-11-28T16:44:43.709987"
+    },
+    {
+      "solicitacao_id": "c284e2fa-948f-4003-91b7-fbe68e54220f",
+      "operador_id": "1",
+      "maquina_id": "1",
+      "tipo_manutencao": "TIPÓ",
+      "prioridade": "ALTA",
+      "descricao_problema": "Máquina quebrada",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T21:15:23.643063"
+    },
+    {
+      "solicitacao_id": "8dab27f6-b7fa-4a28-8b87-d94655a70554",
+      "operador_id": "1",
+      "maquina_id": "1",
+      "tipo_manutencao": "TESTE",
+      "prioridade": "BAIXA",
+      "descricao_problema": "Máquina SLSA",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T21:18:27.795383"
+    },
+    {
+      "solicitacao_id": "5ebb8a82-3d9e-41cf-b29f-3258c9bb7dda",
+      "operador_id": "op_002",
+      "maquina_id": "maq_002",
+      "tipo_manutencao": "corretiva",
+      "prioridade": "alta",
+      "descricao_problema": "Esteira parada - possível problema elétrico",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T21:21:10.753611"
+    },
+    {
+      "solicitacao_id": "900157a0-952a-409c-a30c-50e089e841be",
+      "operador_id": "3123",
+      "maquina_id": "1323123",
+      "tipo_manutencao": "123124124",
+      "prioridade": "13123123123",
+      "descricao_problema": "13123123123",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T21:37:46.785636"
+    },
+    {
+      "solicitacao_id": "b67bd96d-049a-41b8-a327-de99e0d3d717",
+      "operador_id": "tttttttttttttttttttt",
+      "maquina_id": "tttt",
+      "tipo_manutencao": "preventiva",
+      "prioridade": "alta",
+      "descricao_problema": "ttttt",
+      "status": "recebida",
+      "timestamp_solicitacao": "2025-11-28T21:42:04.680315"
     }
   ]
 }

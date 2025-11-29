@@ -360,7 +360,7 @@ def inscrever_email():
     
     
 # ========== ROTAS API ==========
-
+# http://localhost:5000/api/solicitacao/manutencao
 @app.route('/api/solicitacao/manutencao', methods=['POST'])
 def criar_solicitacao_route():
     try:

@@ -6,7 +6,7 @@ Sistema completo de gerenciamento de manutenções industriais que permite regis
 
 🏗️ Arquitetura do Sistema
 
-![Diagrama da Arquitetura](C:\Users\Pichau\OneDrive\Documentos\Industrial-maintenance-system\images\diagrama.jpg)
+![Diagrama da Arquitetura](./assets/img/diagrama.jpeg)
 
 Componentes Principais
 Frontend Web: Interface Flask para gestão de solicitações
